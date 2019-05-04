@@ -1,0 +1,25 @@
+--cpu=Cortex-M4.fp
+"lab01_led\startup_stm32f411xe.o"
+"lab01_led\main.o"
+"lab01_led\gpio.o"
+"lab01_led\stm32f4xx_it.o"
+"lab01_led\stm32f4xx_hal_msp.o"
+"lab01_led\stm32f4xx_hal_tim.o"
+"lab01_led\stm32f4xx_hal_tim_ex.o"
+"lab01_led\stm32f4xx_hal_rcc.o"
+"lab01_led\stm32f4xx_hal_rcc_ex.o"
+"lab01_led\stm32f4xx_hal_flash.o"
+"lab01_led\stm32f4xx_hal_flash_ex.o"
+"lab01_led\stm32f4xx_hal_flash_ramfunc.o"
+"lab01_led\stm32f4xx_hal_gpio.o"
+"lab01_led\stm32f4xx_hal_dma_ex.o"
+"lab01_led\stm32f4xx_hal_dma.o"
+"lab01_led\stm32f4xx_hal_pwr.o"
+"lab01_led\stm32f4xx_hal_pwr_ex.o"
+"lab01_led\stm32f4xx_hal_cortex.o"
+"lab01_led\stm32f4xx_hal.o"
+"lab01_led\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "Lab01_LED\Lab01_LED.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Lab01_LED.map" -o Lab01_LED\Lab01_LED.axf

@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp
+"lab_03char\startup_stm32f411xe.o"
+"lab_03char\main.o"
+"lab_03char\gpio.o"
+"lab_03char\usart.o"
+"lab_03char\stm32f4xx_it.o"
+"lab_03char\stm32f4xx_hal_msp.o"
+"lab_03char\stm32f4xx_hal_tim.o"
+"lab_03char\stm32f4xx_hal_tim_ex.o"
+"lab_03char\stm32f4xx_hal_uart.o"
+"lab_03char\stm32f4xx_hal_rcc.o"
+"lab_03char\stm32f4xx_hal_rcc_ex.o"
+"lab_03char\stm32f4xx_hal_flash.o"
+"lab_03char\stm32f4xx_hal_flash_ex.o"
+"lab_03char\stm32f4xx_hal_flash_ramfunc.o"
+"lab_03char\stm32f4xx_hal_gpio.o"
+"lab_03char\stm32f4xx_hal_dma_ex.o"
+"lab_03char\stm32f4xx_hal_dma.o"
+"lab_03char\stm32f4xx_hal_pwr.o"
+"lab_03char\stm32f4xx_hal_pwr_ex.o"
+"lab_03char\stm32f4xx_hal_cortex.o"
+"lab_03char\stm32f4xx_hal.o"
+"lab_03char\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "Lab_03CHAR\Lab_03CHAR.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Lab_03CHAR.map" -o Lab_03CHAR\Lab_03CHAR.axf

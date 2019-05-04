@@ -1,0 +1,28 @@
+--cpu=Cortex-M4.fp
+"lab_6test\startup_stm32f411xe.o"
+"lab_6test\main.o"
+"lab_6test\gpio.o"
+"lab_6test\tim.o"
+"lab_6test\usart.o"
+"lab_6test\stm32f4xx_it.o"
+"lab_6test\stm32f4xx_hal_msp.o"
+"lab_6test\stm32f4xx_hal_tim.o"
+"lab_6test\stm32f4xx_hal_tim_ex.o"
+"lab_6test\stm32f4xx_hal_uart.o"
+"lab_6test\stm32f4xx_hal_rcc.o"
+"lab_6test\stm32f4xx_hal_rcc_ex.o"
+"lab_6test\stm32f4xx_hal_flash.o"
+"lab_6test\stm32f4xx_hal_flash_ex.o"
+"lab_6test\stm32f4xx_hal_flash_ramfunc.o"
+"lab_6test\stm32f4xx_hal_gpio.o"
+"lab_6test\stm32f4xx_hal_dma_ex.o"
+"lab_6test\stm32f4xx_hal_dma.o"
+"lab_6test\stm32f4xx_hal_pwr.o"
+"lab_6test\stm32f4xx_hal_pwr_ex.o"
+"lab_6test\stm32f4xx_hal_cortex.o"
+"lab_6test\stm32f4xx_hal.o"
+"lab_6test\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "Lab_6test\Lab_6test.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Lab_6test.map" -o Lab_6test\Lab_6test.axf
