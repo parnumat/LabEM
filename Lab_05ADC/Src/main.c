@@ -41,6 +41,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -67,7 +68,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+extern TIM_HandleTypeDef htim2;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -78,8 +79,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void displayHEX(uint32_t);
-	
 /* USER CODE END 0 */
 
 /**
@@ -112,15 +111,16 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC1_Init();
   MX_USART2_UART_Init();
+  MX_TIM2_Init();
+  MX_TIM1_Init();
+	
   /* USER CODE BEGIN 2 */
-
+	HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	volatile uint32_t adc_val =0;
-	/*uint32_t hex1 = 501;*/
-	/*displayHEX(hex1);*/
 
 	HAL_ADC_Start(&hadc1);
   while (1)
@@ -128,23 +128,24 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		
 		while( HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK);
 		adc_val = HAL_ADC_GetValue(&hadc1);
-			if(adc_val > 3800){
-			GPIOC->ODR = 0xf;
-		} else if(adc_val > 2800){
-			GPIOC->ODR = 0x7;
-		} else if(adc_val > 1440){
-			GPIOC->ODR = 0x3;
-		} else if(adc_val > 450){
-			GPIOC->ODR = 0x1;
-		} else {
-			GPIOC->ODR = 0x0;
-		}
-			displayHEX(adc_val);
-			HAL_Delay(100);
-		/* PC0,PC1,PC2,PC3 */
+			if(adc_val > 3001){
+				LED(1000);
+			} 
+			else if(adc_val  > 2001){
+				LED(800);
+			} 
+			else if(adc_val > 1001){
+				LED(600);
+			} 
+			else if(adc_val < 1000){
+				LED(200);
+			} 
+			else {
+				GPIOC->ODR = 0x0;
+			}
+		/* PC0,PC1,PC2 */
 		//HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,GPIO_PIN_SET);
   }
   /* USER CODE END 3 */
@@ -196,8 +197,18 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void displayHEX(uint32_t value){
 	char str[13];
-	sprintf(str,"0x%08x\r\n",value);
+	sprintf(str,"%u\r\n",value);
 	HAL_UART_Transmit(&huart2, (uint8_t*) str, strlen(str),1000);
+}
+
+void LED(int i){
+	GPIOC->ODR = 0x4;
+	HAL_Delay(i);
+	GPIOC->ODR = 0x2;
+	HAL_Delay(i);
+	GPIOC->ODR = 0x1;
+	HAL_Delay(i);
+	GPIOC->ODR = 0x0;
 }
 /* USER CODE END 4 */
 

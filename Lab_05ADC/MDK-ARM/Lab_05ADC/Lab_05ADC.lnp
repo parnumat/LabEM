@@ -3,6 +3,7 @@
 "lab_05adc\main.o"
 "lab_05adc\gpio.o"
 "lab_05adc\adc.o"
+"lab_05adc\tim.o"
 "lab_05adc\usart.o"
 "lab_05adc\stm32f4xx_it.o"
 "lab_05adc\stm32f4xx_hal_msp.o"

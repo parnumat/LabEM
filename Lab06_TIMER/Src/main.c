@@ -67,7 +67,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t count, hh, mm, ss;
+uint32_t count, mm, ss, ms;
 uint8_t error_value = 8; // error 20 ms per 1000 ms , subtract 8 ms per 400ms
 char times[7];
 /* USER CODE END PV */
@@ -81,7 +81,7 @@ void displayTime(uint32_t);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+int con = 0;
 /* USER CODE END 0 */
 
 /**
@@ -180,19 +180,56 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-// Ex.1
-void displayNumber(uint32_t value){
-	char str[13];
-	sprintf(str,"%d\r\n",value);
-	while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
-	HAL_UART_Transmit(&huart2, (uint8_t*) str, strlen(str),1000);
-}
-// Ex.2
 void displayTime(uint32_t value){
 	char time[7];
-	sprintf(time,"%02d:%02d\r", (value/(60*1000))%60, (value/1000)%60);
+	sprintf(time,"%02d:%02d:%02d\r", (value/(60*1000))%60, (value/1000)%60, (value/10)%100);
 	while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
 	HAL_UART_Transmit(&huart2, (uint8_t*) time, strlen(time),1000);
+	if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET){
+		con++ ;
+		if (con == 1)
+		{
+			GPIOC->ODR = 0x4;
+			sprintf(time,"%02d:%02d:%02d\r\n", (value/(60*1000))%60, (value/1000)%60, (value/10)%100);
+			while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
+			HAL_UART_Transmit(&huart2, (uint8_t*) time, strlen(time),1000);
+			HAL_Delay(500);
+		}
+		else if (con == 2)
+		{
+			GPIOC->ODR = 0x6;
+			sprintf(time,"%02d:%02d:%02d\r\n", (value/(60*1000))%60, (value/1000)%60, (value/10)%100);
+			while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
+			HAL_UART_Transmit(&huart2, (uint8_t*) time, strlen(time),1000);
+			HAL_Delay(500);
+		}
+		else if (con == 3)
+		{
+			GPIOC->ODR = 0x6;
+			sprintf(time,"%02d:%02d:%02d\r\n", (value/(60*1000))%60, (value/1000)%60, (value/10)%100);
+			while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
+			HAL_UART_Transmit(&huart2, (uint8_t*) time, strlen(time),1000);
+			HAL_Delay(500);
+		}
+		else if (con == 4)
+		{
+			GPIOC->ODR = 0x6;
+			sprintf(time,"%02d:%02d:%02d\r\n", (value/(60*1000))%60, (value/1000)%60, (value/10)%100);
+			while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
+			HAL_UART_Transmit(&huart2, (uint8_t*) time, strlen(time),1000);
+			HAL_Delay(500);
+		}
+		else if (con == 5)
+		{
+			GPIOC->ODR = 0x7;sprintf(time,"%02d:%02d:%02d\r\n", (value/(60*1000))%60, (value/1000)%60, (value/10)%100);
+			while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
+			HAL_UART_Transmit(&huart2, (uint8_t*) time, strlen(time),1000);
+			HAL_Delay(500);
+			HAL_TIM_Base_Stop_IT(&htim1);
+			HAL_TIM_Base_Stop_IT(&htim2);
+			
+		}
+	}
 }
 /* USER CODE END 4 */
 
